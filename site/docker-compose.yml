@@ -1,0 +1,8 @@
+version: '3.5'
+services: 
+     
+    angular-site:
+        container_name: angular-site
+        image: colares07/angularjs-tcc-site
+        ports: 
+            - "8080:8080"

@@ -1,0 +1,117 @@
+version: '3.5'
+services: 
+    rabbitmq:
+        container_name: rabbitmq
+        image: bigdatatcc/fila-analise-exame:1.1.0
+        ports:
+        - "5672:5672"
+        - "15672:15672"
+        networks:
+            - rabbitmq-network
+
+    # mongo-express:
+    #     container_name: mg-express
+    #     image: mongo-express
+    #     ports:
+    #         - 8081:8081
+    #     environment:
+    #         ME_CONFIG_BASICAUTH_USERNAME: colares
+    #         ME_CONFIG_BASICAUTH_PASSWORD: Tcc2020!
+    #         ME_CONFIG_MONGODB_PORT: 27017
+    #         ME_CONFIG_MONGODB_ADMINUSERNAME: root
+    #         ME_CONFIG_MONGODB_ADMINPASSWORD: MongoDB2019!
+    #     links:
+    #         - db-mongo
+    #     networks:
+    #         - db-nosql-network
+    #     depends_on: 
+    #         - db-mongo
+    
+    db-mongo:
+        container_name: mongo
+        image: mongo
+        environment:
+            MONGO_INITDB_ROOT_USERNAME: root
+            MONGO_INITDB_ROOT_PASSWORD: MongoDB2019!
+        ports:
+            - "27017:27017"
+        # volumes:
+        #     - /home/colares/tcc/volumes/MongoDB:/data/db
+        networks:
+            - db-nosql-network
+
+    db:
+        container_name: mysql
+        image: mysql
+        command: --default-authentication-plugin=mysql_native_password
+        restart: always
+        environment:
+            MYSQL_ROOT_PASSWORD: root2020!
+            MYSQL_DATABASE: db_tcc
+            MYSQL_USER: tcc
+            MYSQL_PASSWORD: tcc
+        networks: 
+            - db-sql-network
+        ports: 
+            - 3306:3306
+        # volumes:
+        #     - /home/colares/tcc/volumes/mysql:/var/lib/mysql
+    
+    # adminer:
+    #     container_name: adminer
+    #     image: adminer
+    #     restart: always
+    #     ports:
+    #         - 8082:8080 
+    #     networks: 
+    #         - db-sql-network
+
+    # analise:
+    #     container_name: analise
+    #     image: bigdatatcc/python-rn-classificar:2.0.0
+    #     environment:
+    #         DATABASE: tccdb
+    #         DATABASE_HOST: mongo
+    #         DATABASE_USERNAME: root
+    #         DATABASE_PASSWORD: MongoDB2019!
+    #         DATABASE_PORT: 27017
+    #         COLLECTION_EXAME: exame
+    #         QUEUE_NAME: fila.analise.exame
+    #         QUEUE_HOST: rabbitmq
+    #         QUEUE_PORT: 5672
+
+    #     depends_on: 
+    #         - rabbitmq
+    #         - db-mongo
+    #     links:
+    #         - db-mongo        
+    #     networks: 
+    #         - rabbitmq-network
+    #         - db-nosql-network
+
+    # monitor:
+    #     container_name: monitor
+    #     image: grafana/grafana
+    #     ports: 
+    #         - "3000:3000"
+    #     networks: 
+    #         - db-nosql-network
+    #         - db-sql-network 
+
+networks: 
+    rabbitmq-network:
+        name: rabbitmq-network
+        external: false
+        
+    db-nosql-network:
+        name: db-nosql-network 
+        driver: bridge
+        external: false
+
+    db-sql-network:
+        name: db-sql-network 
+        driver: bridge
+        external: false
+
+
+        
