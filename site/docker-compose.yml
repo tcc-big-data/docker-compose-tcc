@@ -3,6 +3,6 @@ services:
      
     angular-site:
         container_name: angular-site
-        image: colares07/angularjs-tcc-site:1.0.0
+        image: colares07/angularjs-tcc-site:1.0.1
         ports: 
             - "8080:8080"
