@@ -28,7 +28,7 @@ services:
     #         - db-mongo
     
     db-mongo:
-        container_name: mongo
+        container_name: db-mongo
         image: mongo
         environment:
             MONGO_INITDB_ROOT_USERNAME: root
@@ -40,8 +40,8 @@ services:
         networks:
             - db-nosql-network
 
-    db:
-        container_name: mysql
+    db-mysql:
+        container_name: db-mysql
         image: mysql
         command: --default-authentication-plugin=mysql_native_password
         # restart: always

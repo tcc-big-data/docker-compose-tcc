@@ -6,7 +6,7 @@ services:
         image: colares07/docker-tcc-analise
         environment:
             QUEUE_HOST: rabbitmq
-            DATABASE_HOST: mongo
+            DATABASE_HOST: db-mongo
         networks: 
             - rabbitmq-network
             - db-nosql-network 

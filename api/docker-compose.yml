@@ -13,14 +13,14 @@ services:
         container_name: paciente
         image: colares07/spring-boot-tcc-paciente
         environment:
-          - SPRING_DATASOURCE_URL=jdbc:mysql://localhost:3306/tcc-db
+          - SPRING_DATASOURCE_URL=jdbc:mysql://db-mysql:3306/tcc-db
 
-          - SPRING_DATASOURCE_HOST=localhost
+          - SPRING_DATASOURCE_HOST=db-mysql
           - SPRING_DATASOURCE_PORT=3306
 
           - SPRING_DATASOURCE_USERNAME=root
           - SPRING_DATASOURCE_PASSWORD=root2020!
-          - EUREKA_URL=http://localhost:8800/eureka
+          - EUREKA_URL=http://eureka-server:8800/eureka
         ports:
             - "8050:8050"
         links:
@@ -29,24 +29,25 @@ services:
           - eureka-server
         networks:
           - api-network
+          - db-sql-network
 
     exame:
         container_name: exame
         image: colares07/spring-boot-tcc-exame
         environment:
-          - SPRING_DATASOURCE_URL=jdbc:mysql://localhost:3306/tcc-db
+          - SPRING_DATASOURCE_URL=jdbc:mysql://db-mysql:3306/tcc-db
 
-          - SPRING_DATASOURCE_HOST=localhost
+          - SPRING_DATASOURCE_HOST=db-mysql
           - SPRING_DATASOURCE_PORT=3306
 
           - SPRING_DATASOURCE_USERNAME=root
           - SPRING_DATASOURCE_PASSWORD=root2020!
           
-          - EUREKA_URL=http://localhost:8800/eureka
+          - EUREKA_URL=http://eureka-server:8800/eureka
 
           - SPRING_DATA_MONGO_TYPE_AUTHENTICATION=admin
           - SPRING_DATA_MONGO_DATABASE=tcc-db
-          - SPRING_DATA_MONGO_HOST=localhost
+          - SPRING_DATA_MONGO_HOST=db-mongo
           - SPRING_DATA_MONGO_PASSWORD=MongoDB2019!
           - SPRING_DATA_MONGO_PORT=27017
           - SPRING_DATA_MONGO_USERNAME=root
@@ -55,16 +56,19 @@ services:
             - "8060:8060"
         links:
           - eureka-server
+
         depends_on:
           - eureka-server
         networks:
           - api-network
+          - db-nosql-network
+          - db-sql-network
     
     medico:
         container_name: medico
         image: colares07/spring-boot-tcc-medico
         environment:
-          - EUREKA_URL=http://localhost:8800/eureka
+          - EUREKA_URL=http://eureka-server:8800/eureka
         ports:
             - "8055:8055"
         links:
@@ -78,7 +82,7 @@ services:
         container_name: tecnico
         image: colares07/spring-boot-tcc-tecnico
         environment:        
-          - EUREKA_URL=http://localhost:8800/eureka
+          - EUREKA_URL=http://eureka-server:8800/eureka
         ports:
             - "8070:8070"
         links:
@@ -92,15 +96,15 @@ services:
         container_name: retorno
         image: colares07/spring-boot-tcc-retorno
         environment:
-          - SPRING_DATASOURCE_URL=jdbc:mysql://localhost:3306/tcc-db
+          - SPRING_DATASOURCE_URL=jdbc:mysql://db-mysql:3306/tcc-db
 
-          - SPRING_DATASOURCE_HOST=localhost
+          - SPRING_DATASOURCE_HOST=db-mysql
           - SPRING_DATASOURCE_PORT=3306
 
           - SPRING_DATASOURCE_USERNAME=root
           - SPRING_DATASOURCE_PASSWORD=root2020!
           
-          - EUREKA_URL=http://localhost:8800/eureka
+          - EUREKA_URL=http://eureka-server:8800/eureka
         ports:
             - "8099:8099"
         links:
@@ -111,21 +115,22 @@ services:
           - fila-analise
         networks:
           - api-network
+          - db-sql-network
 
     fila-consolidado:
         container_name: fila-consolidado
         image: colares07/spring-boot-tcc-consolidar-analise
         environment:
-          - SPRING_RABBITMQ_HOST=localhost
+          - SPRING_RABBITMQ_HOST=rabbitmq
           - SPRING_RABBITMQ_PASSWORD=guest
           - SPRING_RABBITMQ_PORT=5672
           - SPRING_RABBITMQ_USERNAME=guest
 
           - QUEUE.NAME=fila.consolidar.exame
 
-          - SPRING_DATASOURCE_URL=jdbc:mysql://localhost:3306/tcc-db
+          - SPRING_DATASOURCE_URL=jdbc:mysql://db-mysql:3306/tcc-db
 
-          - SPRING_DATASOURCE_HOST=localhost
+          - SPRING_DATASOURCE_HOST=db-mysql
           - SPRING_DATASOURCE_PORT=3306
           
           - SPRING_DATASOURCE_USERNAME=root
@@ -133,34 +138,51 @@ services:
 
           - SPRING_DATA_MONGO_TYPE_AUTHENTICATION=admin
           - SPRING_DATA_MONGO_DATABASE=tcc-db
-          - SPRING_DATA_MONGO_HOST=localhost
+          - SPRING_DATA_MONGO_HOST=db-mongo
           - SPRING_DATA_MONGO_PASSWORD=MongoDB2019!
           - SPRING_DATA_MONGO_PORT=27017
           - SPRING_DATA_MONGO_USERNAME=root 
         networks:
           - api-network
+          - rabbitmq-network
+          - db-nosql-network
+          - db-sql-network
 
 
     fila-analise:
         container_name: fila-analise
         image: colares07/spring-boot-tcc-fila-analise
         environment:
-          - SPRING_RABBITMQ_HOST=localhost
+          - SPRING_RABBITMQ_HOST=rabbitmq
           - SPRING_RABBITMQ_PASSWORD=guest
           - SPRING_RABBITMQ_PORT=5672
           - SPRING_RABBITMQ_USERNAME=guest
 
           - QUEUE.NAME=fila.analise.exame
 
-          - EUREKA_URL=http://localhost:8800/eureka
+          - EUREKA_URL=http://eureka-server:8800/eureka
         links:
           - eureka-server
         depends_on:
           - eureka-server
         networks:
           - api-network
+          - rabbitmq-network
 
 networks:
     api-network:
 #         name: api-network
 #         external: true
+
+    rabbitmq-network:
+        name: rabbitmq-network
+        external: true
+
+    db-nosql-network:
+        name: db-nosql-network 
+        external: true
+
+    db-sql-network:
+        name: db-sql-network 
+        driver: bridge
+        external: false
