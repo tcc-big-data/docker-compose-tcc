@@ -1,4 +1,4 @@
-version: '2.0'
+version: '3.5'
 
 services:
     analise:
@@ -13,11 +13,9 @@ services:
 
 networks:
     rabbitmq-network:
-        # name: rabbitmq-network
-        external:
-            name: rabbitmq-network
+        name: rabbitmq-network
+        external: true
 
     db-nosql-network:
-        # name: db-nosql-network 
-        external: 
-            name: db-nosql-network
+        name: db-nosql-network 
+        external: true
