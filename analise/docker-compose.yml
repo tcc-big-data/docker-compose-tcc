@@ -20,5 +20,4 @@ networks:
     db-nosql-network:
         # name: db-nosql-network 
         external: 
-            name: name: db-nosql-network
-
+            name: db-nosql-network
