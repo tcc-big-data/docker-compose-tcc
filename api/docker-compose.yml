@@ -6,6 +6,8 @@ services:
         image: colares07/spring-boot-tcc-eureka
         ports: 
             - "8800:8800"
+        networks:
+          - api-network
 
     paciente:
         container_name: paciente
@@ -18,15 +20,16 @@ services:
 
           - SPRING_DATASOURCE_USERNAME=root
           - SPRING_DATASOURCE_PASSWORD=root2020!
-          - EUREKA_URL=http://eureka-server:8800/eureka
+          - EUREKA_URL=http://localhost:8800/eureka
         ports:
             - "8050:8050"
         links:
           - eureka-server
         depends_on:
           - eureka-server
-        # networks:
-        #   - api-network
+        networks:
+          - api-network
+
     exame:
         container_name: exame
         image: colares07/spring-boot-tcc-exame
@@ -39,7 +42,7 @@ services:
           - SPRING_DATASOURCE_USERNAME=root
           - SPRING_DATASOURCE_PASSWORD=root2020!
           
-          - EUREKA_URL=http://eureka-server:8800/eureka
+          - EUREKA_URL=http://localhost:8800/eureka
 
           - SPRING_DATA_MONGO_TYPE_AUTHENTICATION=admin
           - SPRING_DATA_MONGO_DATABASE=tcc-db
@@ -54,36 +57,36 @@ services:
           - eureka-server
         depends_on:
           - eureka-server
-        # networks:
-        #   - api-network
+        networks:
+          - api-network
     
     medico:
         container_name: medico
         image: colares07/spring-boot-tcc-medico
         environment:
-          - EUREKA_URL=http://eureka-server:8800/eureka
+          - EUREKA_URL=http://localhost:8800/eureka
         ports:
             - "8055:8055"
         links:
           - eureka-server
         depends_on:
           - eureka-server
-        # networks:
-        #   - api-network
+        networks:
+          - api-network
 
     tecnico:
         container_name: tecnico
         image: colares07/spring-boot-tcc-tecnico
         environment:        
-          - EUREKA_URL=http://eureka-server:8800/eureka
+          - EUREKA_URL=http://localhost:8800/eureka
         ports:
             - "8070:8070"
         links:
           - eureka-server
         depends_on:
           - eureka-server
-        # networks:
-        #   - api-network
+        networks:
+          - api-network
 
     retorno:
         container_name: retorno
@@ -97,7 +100,7 @@ services:
           - SPRING_DATASOURCE_USERNAME=root
           - SPRING_DATASOURCE_PASSWORD=root2020!
           
-          - EUREKA_URL=http://eureka-server:8800/eureka
+          - EUREKA_URL=http://localhost:8800/eureka
         ports:
             - "8099:8099"
         links:
@@ -106,8 +109,8 @@ services:
         depends_on:
           - eureka-server
           - fila-analise
-        # networks:
-        #   - api-network
+        networks:
+          - api-network
 
     fila-consolidado:
         container_name: fila-consolidado
@@ -134,6 +137,9 @@ services:
           - SPRING_DATA_MONGO_PASSWORD=MongoDB2019!
           - SPRING_DATA_MONGO_PORT=27017
           - SPRING_DATA_MONGO_USERNAME=root 
+        networks:
+          - api-network
+
 
     fila-analise:
         container_name: fila-analise
@@ -146,15 +152,15 @@ services:
 
           - QUEUE.NAME=fila.analise.exame
 
-          - EUREKA_URL=http://eureka-server:8800/eureka
+          - EUREKA_URL=http://localhost:8800/eureka
         links:
           - eureka-server
         depends_on:
           - eureka-server
-        # networks:
-        #   - api-network
+        networks:
+          - api-network
 
-# networks:
-#     api-network:
+networks:
+    api-network:
 #         name: api-network
 #         external: true
