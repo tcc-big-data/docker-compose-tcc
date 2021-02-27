@@ -1,4 +1,4 @@
-version: '2.0'
+version: '3.5'
 services: 
     rabbitmq:
         container_name: rabbitmq
@@ -79,18 +79,16 @@ services:
 
 networks: 
     rabbitmq-network:
-        # name: rabbitmq-network
-        # external: false
+        name: rabbitmq-network
+        external: false
 
     db-nosql-network:
-        # name: db-nosql-network 
-        # driver: bridge
-        # external: false
+        name: db-nosql-network 
+        driver: bridge
+        external: false
 
     db-sql-network:
-        # name: db-sql-network 
-        # driver: bridge
-        # external: false
-
-
-        
+        name: db-sql-network 
+        driver: bridge
+        external: false
+       
