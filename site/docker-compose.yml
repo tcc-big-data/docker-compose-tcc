@@ -5,4 +5,4 @@ services:
         container_name: angular-site
         image: colares07/angularjs-tcc-site
         ports: 
-            - "8080:8080"
+            - "80:8080"
