@@ -68,14 +68,14 @@ services:
     #         - rabbitmq-network
     #         - db-nosql-network 
     
-    adminer:
-        container_name: adminer
-        image: adminer
-        restart: always
-        ports:
-            - 8082:8080 
-        networks: 
-            - db-sql-network
+    # adminer:
+    #     container_name: adminer
+    #     image: adminer
+    #     restart: always
+    #     ports:
+    #         - 8082:8080 
+    #     networks: 
+    #         - db-sql-network
 
 networks: 
     rabbitmq-network:
