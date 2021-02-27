@@ -4,34 +4,16 @@ services:
     eureka-server:
         container_name: eureka-server
         image: colares07/spring-boot-tcc-eureka
-        # image: springcloud/eureka
-        # environment:
-        #     - SERVER_PORT=8800
         ports: 
             - "8800:8800"
-
-    # eureka:
-    #     container_name: eureka
-    #     image: springcloud/eureka
-    #     ports: 
-    #         - "8800:8800"
-    #     # links:
-    #     #   - paciente
-    #     #   - exame
-    #     #   - medico
-    #     #   - tecnico
-    #     #   - retorno
-    #     #   - fila-analise 
-    #     networks:
-    #       - api-network
 
     paciente:
         container_name: paciente
         image: colares07/spring-boot-tcc-paciente
         environment:
-          - SPRING_DATASOURCE_URL=jdbc:mysql://192.168.0.100:3306/tcc-db
+          - SPRING_DATASOURCE_URL=jdbc:mysql://localhost:3306/tcc-db
 
-          - SPRING_DATASOURCE_HOST=192.168.0.100
+          - SPRING_DATASOURCE_HOST=localhost
           - SPRING_DATASOURCE_PORT=3306
 
           - SPRING_DATASOURCE_USERNAME=root
@@ -49,9 +31,9 @@ services:
         container_name: exame
         image: colares07/spring-boot-tcc-exame
         environment:
-          - SPRING_DATASOURCE_URL=jdbc:mysql://192.168.0.100:3306/tcc-db
+          - SPRING_DATASOURCE_URL=jdbc:mysql://localhost:3306/tcc-db
 
-          - SPRING_DATASOURCE_HOST=192.168.0.100
+          - SPRING_DATASOURCE_HOST=localhost
           - SPRING_DATASOURCE_PORT=3306
 
           - SPRING_DATASOURCE_USERNAME=root
@@ -61,7 +43,7 @@ services:
 
           - SPRING_DATA_MONGO_TYPE_AUTHENTICATION=admin
           - SPRING_DATA_MONGO_DATABASE=tcc-db
-          - SPRING_DATA_MONGO_HOST=192.168.0.100
+          - SPRING_DATA_MONGO_HOST=localhost
           - SPRING_DATA_MONGO_PASSWORD=MongoDB2019!
           - SPRING_DATA_MONGO_PORT=27017
           - SPRING_DATA_MONGO_USERNAME=root
@@ -107,9 +89,9 @@ services:
         container_name: retorno
         image: colares07/spring-boot-tcc-retorno
         environment:
-          - SPRING_DATASOURCE_URL=jdbc:mysql://192.168.0.100:3306/tcc-db
+          - SPRING_DATASOURCE_URL=jdbc:mysql://localhost:3306/tcc-db
 
-          - SPRING_DATASOURCE_HOST=192.168.0.100
+          - SPRING_DATASOURCE_HOST=localhost
           - SPRING_DATASOURCE_PORT=3306
 
           - SPRING_DATASOURCE_USERNAME=root
@@ -131,16 +113,16 @@ services:
         container_name: fila-consolidado
         image: colares07/spring-boot-tcc-consolidar-analise
         environment:
-          - SPRING_RABBITMQ_HOST=192.168.0.100
+          - SPRING_RABBITMQ_HOST=localhost
           - SPRING_RABBITMQ_PASSWORD=guest
           - SPRING_RABBITMQ_PORT=5672
           - SPRING_RABBITMQ_USERNAME=guest
 
           - QUEUE.NAME=fila.consolidar.exame
 
-          - SPRING_DATASOURCE_URL=jdbc:mysql://192.168.0.100:3306/tcc-db
+          - SPRING_DATASOURCE_URL=jdbc:mysql://localhost:3306/tcc-db
 
-          - SPRING_DATASOURCE_HOST=192.168.0.100
+          - SPRING_DATASOURCE_HOST=localhost
           - SPRING_DATASOURCE_PORT=3306
           
           - SPRING_DATASOURCE_USERNAME=root
@@ -148,7 +130,7 @@ services:
 
           - SPRING_DATA_MONGO_TYPE_AUTHENTICATION=admin
           - SPRING_DATA_MONGO_DATABASE=tcc-db
-          - SPRING_DATA_MONGO_HOST=192.168.0.100
+          - SPRING_DATA_MONGO_HOST=localhost
           - SPRING_DATA_MONGO_PASSWORD=MongoDB2019!
           - SPRING_DATA_MONGO_PORT=27017
           - SPRING_DATA_MONGO_USERNAME=root 
@@ -157,7 +139,7 @@ services:
         container_name: fila-analise
         image: colares07/spring-boot-tcc-fila-analise
         environment:
-          - SPRING_RABBITMQ_HOST=192.168.0.100
+          - SPRING_RABBITMQ_HOST=localhost
           - SPRING_RABBITMQ_PASSWORD=guest
           - SPRING_RABBITMQ_PORT=5672
           - SPRING_RABBITMQ_USERNAME=guest

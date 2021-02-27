@@ -54,8 +54,8 @@ services:
             - db-sql-network
         ports: 
             - 3306:3306
-        # volumes:
-        #     - /home/colares/tcc/volumes/mysql:/var/lib/mysql
+        volumes:
+            - /home/colares/tcc/volumes/mysql:/var/lib/mysql
     
     # adminer:
     #     container_name: adminer
@@ -66,43 +66,11 @@ services:
     #     networks: 
     #         - db-sql-network
 
-    # analise:
-    #     container_name: analise
-    #     image: bigdatatcc/python-rn-classificar:2.0.0
-    #     environment:
-    #         DATABASE: tccdb
-    #         DATABASE_HOST: mongo
-    #         DATABASE_USERNAME: root
-    #         DATABASE_PASSWORD: MongoDB2019!
-    #         DATABASE_PORT: 27017
-    #         COLLECTION_EXAME: exame
-    #         QUEUE_NAME: fila.analise.exame
-    #         QUEUE_HOST: rabbitmq
-    #         QUEUE_PORT: 5672
-
-    #     depends_on: 
-    #         - rabbitmq
-    #         - db-mongo
-    #     links:
-    #         - db-mongo        
-    #     networks: 
-    #         - rabbitmq-network
-    #         - db-nosql-network
-
-    # monitor:
-    #     container_name: monitor
-    #     image: grafana/grafana
-    #     ports: 
-    #         - "3000:3000"
-    #     networks: 
-    #         - db-nosql-network
-    #         - db-sql-network 
-
 networks: 
     rabbitmq-network:
         name: rabbitmq-network
         external: false
-        
+
     db-nosql-network:
         name: db-nosql-network 
         driver: bridge
