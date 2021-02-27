@@ -80,17 +80,17 @@ services:
 networks: 
     rabbitmq-network:
         # name: rabbitmq-network
-        external: false
+        # external: false
 
     db-nosql-network:
         # name: db-nosql-network 
-        driver: bridge
-        external: false
+        # driver: bridge
+        # external: false
 
     db-sql-network:
         # name: db-sql-network 
-        driver: bridge
-        external: false
+        # driver: bridge
+        # external: false
 
 
         
