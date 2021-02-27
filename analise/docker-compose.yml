@@ -14,8 +14,11 @@ services:
 networks:
     rabbitmq-network:
         # name: rabbitmq-network
-        external: true
+        external:
+            name: rabbitmq-network
 
     db-nosql-network:
         # name: db-nosql-network 
-        external: true
+        external: 
+            name: name: db-nosql-network
+

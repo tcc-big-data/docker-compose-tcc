@@ -58,15 +58,15 @@ services:
             - /home/colares/tcc/volumes/mysql:/var/lib/mysql
 
 
-    analise:
-        container_name: analise
-        image: colares07/docker-tcc-analise
-        environment:
-            QUEUE_HOST: rabbitmq
-            DATABASE_HOST: mongo
-        networks: 
-            - rabbitmq-network
-            - db-nosql-network 
+    # analise:
+    #     container_name: analise
+    #     image: colares07/docker-tcc-analise
+    #     environment:
+    #         QUEUE_HOST: rabbitmq
+    #         DATABASE_HOST: mongo
+    #     networks: 
+    #         - rabbitmq-network
+    #         - db-nosql-network 
     
     # adminer:
     #     container_name: adminer
