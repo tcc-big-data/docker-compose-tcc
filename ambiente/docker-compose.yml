@@ -47,7 +47,7 @@ services:
         # restart: always
         environment:
             MYSQL_ROOT_PASSWORD: root2020!
-            MYSQL_DATABASE: db-tcc
+            MYSQL_DATABASE: tcc-db
             MYSQL_USER: tcc
             MYSQL_PASSWORD: tcc
         networks: 
