@@ -44,7 +44,7 @@ services:
         container_name: mysql
         image: mysql
         command: --default-authentication-plugin=mysql_native_password
-        restart: always
+        # restart: always
         environment:
             MYSQL_ROOT_PASSWORD: root2020!
             MYSQL_DATABASE: db_tcc
