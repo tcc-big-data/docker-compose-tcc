@@ -3,7 +3,7 @@ services:
      
     eureka-server:
         container_name: eureka-server
-        image: colares07/spring-boot-tcc-eureka
+        image: tccbigdata/spring-boot-tcc-eureka:1.0.0
         ports: 
             - "8800:8800"
         networks:
@@ -11,7 +11,7 @@ services:
 
     paciente:
         container_name: paciente
-        image: colares07/spring-boot-tcc-paciente
+        image: tccbigdata/spring-boot-tcc-paciente:1.0.0
         environment:
           - SPRING_DATASOURCE_URL=jdbc:mysql://db-mysql:3306/tcc-db
 
@@ -33,7 +33,7 @@ services:
 
     exame:
         container_name: exame
-        image: colares07/spring-boot-tcc-exame
+        image: tccbigdata/spring-boot-tcc-exame:1.0.0
         environment:
           - SPRING_DATASOURCE_URL=jdbc:mysql://db-mysql:3306/tcc-db
 
@@ -66,7 +66,7 @@ services:
     
     medico:
         container_name: medico
-        image: colares07/spring-boot-tcc-medico
+        image: tccbigdata/spring-boot-tcc-medico:1.0.0
         environment:
           - EUREKA_URL=http://eureka-server:8800/eureka
         ports:
@@ -80,7 +80,7 @@ services:
 
     tecnico:
         container_name: tecnico
-        image: colares07/spring-boot-tcc-tecnico
+        image: tccbigdata/spring-boot-tcc-tecnico:1.0.0
         environment:        
           - EUREKA_URL=http://eureka-server:8800/eureka
         ports:
@@ -94,7 +94,7 @@ services:
 
     retorno:
         container_name: retorno
-        image: colares07/spring-boot-tcc-retorno
+        image: tccbigdata/spring-boot-tcc-retorno:1.0.0
         environment:
           - SPRING_DATASOURCE_URL=jdbc:mysql://db-mysql:3306/tcc-db
 
@@ -119,7 +119,7 @@ services:
 
     fila-consolidado:
         container_name: fila-consolidado
-        image: colares07/spring-boot-tcc-consolidar-analise
+        image: tccbigdata/spring-boot-tcc-consolidar-analise:1.0.0
         environment:
           - SPRING_RABBITMQ_HOST=rabbitmq
           - SPRING_RABBITMQ_PASSWORD=guest
@@ -151,7 +151,7 @@ services:
 
     fila-analise:
         container_name: fila-analise
-        image: colares07/spring-boot-tcc-fila-analise
+        image: tccbigdata/spring-boot-tcc-fila-analise:1.0.0
         environment:
           - SPRING_RABBITMQ_HOST=rabbitmq
           - SPRING_RABBITMQ_PASSWORD=guest

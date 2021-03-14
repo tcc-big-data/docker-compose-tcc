@@ -2,31 +2,13 @@ version: '3.5'
 services: 
     rabbitmq:
         container_name: rabbitmq
-        image: bigdatatcc/fila-analise-exame:1.1.0
+        image: bigdatatcc/fila-analise-exame:1.0.0
         ports:
         - "5672:5672"
         - "15672:15672"
         networks:
             - rabbitmq-network
 
-    # mongo-express:
-    #     container_name: mg-express
-    #     image: mongo-express
-    #     ports:
-    #         - 8081:8081
-    #     environment:
-    #         ME_CONFIG_BASICAUTH_USERNAME: colares
-    #         ME_CONFIG_BASICAUTH_PASSWORD: Tcc2020!
-    #         ME_CONFIG_MONGODB_PORT: 27017
-    #         ME_CONFIG_MONGODB_ADMINUSERNAME: root
-    #         ME_CONFIG_MONGODB_ADMINPASSWORD: MongoDB2019!
-    #     links:
-    #         - db-mongo
-    #     networks:
-    #         - db-nosql-network
-    #     depends_on: 
-    #         - db-mongo
-    
     db-mongo:
         container_name: db-mongo
         image: mongo
@@ -57,25 +39,6 @@ services:
         volumes:
             - /home/colares/tcc/volumes/mysql:/var/lib/mysql
 
-
-    # analise:
-    #     container_name: analise
-    #     image: colares07/docker-tcc-analise
-    #     environment:
-    #         QUEUE_HOST: rabbitmq
-    #         DATABASE_HOST: mongo
-    #     networks: 
-    #         - rabbitmq-network
-    #         - db-nosql-network 
-    
-    # adminer:
-    #     container_name: adminer
-    #     image: adminer
-    #     restart: always
-    #     ports:
-    #         - 8082:8080 
-    #     networks: 
-    #         - db-sql-network
 
 networks: 
     rabbitmq-network:

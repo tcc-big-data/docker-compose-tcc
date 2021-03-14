@@ -3,7 +3,7 @@ version: '3.5'
 services:
     analise:
         container_name: analise
-        image: colares07/docker-tcc-analise
+        image: tccbigdata/docker-tcc-analise:1.0.0
         environment:
             QUEUE_HOST: rabbitmq
             DATABASE_HOST: db-mongo
